@@ -1,5 +1,6 @@
 <?php
-
+/*phpinfo();
+exit;*/
 echo '<h1 style="text-align: center;">欢迎使用DNMP！</h1>';
 echo '<h2>版本信息</h2>';
 
@@ -9,7 +10,6 @@ echo '<li>Nginx版本：', $_SERVER['SERVER_SOFTWARE'], '</li>';
 echo '<li>MySQL服务器版本：', getMysqlVersion(), '</li>';
 echo '<li>Redis服务器版本：', getRedisVersion(), '</li>';
 echo '</ul>';
-
 echo '<h2>已安装扩展</h2>';
 printExtensions();
 
@@ -21,7 +21,7 @@ function getMysqlVersion()
 {
     if (extension_loaded('PDO_MYSQL')) {
         try {
-            $dbh = new PDO('mysql:host=mysql;dbname=mysql', 'root', '123456');
+            $dbh = new PDO('mysql:host=10.5.201.214;dbname=mysql', 'root', '123456');
             $sth = $dbh->query('SELECT VERSION() as version');
             $info = $sth->fetch();
         } catch (PDOException $e) {
@@ -42,7 +42,8 @@ function getRedisVersion()
     if (extension_loaded('redis')) {
         try {
             $redis = new Redis();
-            $redis->connect('redis', 6379);
+            $redis->connect('10.5.201.214', 6379);
+            $redis->auth('plk789');
             $info = $redis->info();
             return $info['redis_version'];
         } catch (Exception $e) {

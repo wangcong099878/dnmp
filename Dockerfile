@@ -37,8 +37,8 @@ RUN apt install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
     && docker-php-ext-install $mc pdo_mysql \
     && docker-php-ext-install $mc mysqli \
     && docker-php-ext-install $mc mbstring \
-    && docker-php-ext-install $mc exif
-#    && docker-php-ext-install $mc bcmath \
+    && docker-php-ext-install $mc exif \
+    && docker-php-ext-install $mc bcmath
 #    && docker-php-ext-install $mc calendar \
 #    && docker-php-ext-install $mc sockets \
 #    && docker-php-ext-install $mc gettext \

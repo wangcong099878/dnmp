@@ -1,3 +1,12 @@
+docker-compose build
+docker-compose up
+
+
+ln -s /Users/wangcong/php/juejin/1jiedan /Users/wangcong/php/juejin/dnmp/www/1jiedan
+
+
+
+
 DNMP（Docker + Nginx + MySQL + PHP7/5 + Redis）是一款全功能的**LNMP一键安装程序**。
 
 **[[ENGLISH]](README-en.md)**
@@ -146,6 +155,7 @@ ini_set('display_errors', 'on');
 
 1. 进入容器，创建日志文件并修改权限：
     ```bash
+    sudo docker exec -it  dnmp_nginx_1 /bin/sh
     $ docker exec -it dnmp_php_1 /bin/bash
     $ mkdir /var/log/php
     $ cd /var/log/php
