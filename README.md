@@ -1,7 +1,10 @@
+# 个人备注
 docker-compose build
 docker-compose up
 ln -s /Users/wangcong/php/juejin/1jiedan /Users/wangcong/php/juejin/dnmp/www/1jiedan
 docker-compose stop
+
+node_modules文件夹下过多会导致文件更新延迟，等等就好
 
 
 DNMP（Docker + Nginx + MySQL + PHP7/5 + Redis）是一款全功能的**LNMP一键安装程序**。
