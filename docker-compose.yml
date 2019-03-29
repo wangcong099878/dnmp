@@ -1,16 +1,29 @@
 version: "3"
 services:
+
+  bg-sync:
+    image: cweagans/bg-sync
+    volumes:
+      - ${SOURCE_DIR}:/source
+      - data-volume:/var/www/myapp
+    environment:
+      - SYNC_DESTINATION=/var/www/myapp
+      - SYNC_MAX_INOTIFY_WATCHES=50000
+      - SYNC_VERBOSE=1
+    privileged: true
+
   nginx:
     image: nginx:${NGINX_VERSION}
     ports:
       - "${NGINX_HTTP_HOST_PORT}:80"
       - "${NGINX_HTTPS_HOST_PORT}:443"
     volumes:
-      - ${SOURCE_DIR}:/var/www/html/:rw
+      - data-volume:/var/www/myapp
       - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d/:rw
       - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:ro
       - ${NGINX_LOG_DIR}:/var/log/nginx/:rw
     restart: always
+    privileged: true
     networks:
       - default
 
@@ -22,16 +35,22 @@ services:
         PHP_XDEBUG: ${PHP72_XDEBUG}
         PHP_SWOOLE: ${PHP72_SWOOLE}
         PHP_REDIS: ${PHP72_REDIS}
+        PHP_XHPROF: ${PHP72_XHPROF}
         REPLACE_SOURCE_LIST: ${REPLACE_SOURCE_LIST}
     volumes:
-      - ${SOURCE_DIR}:/var/www/html/:rw
+      - data-volume:/var/www/myapp
       - ${PHP72_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
       - ${PHP72_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${XHPROF_LOG_DIR}:/var/log/xhprof/:rw
+      - ${PHP_LOG_DIR}:/var/log/php/:rw
     restart: always
     cap_add:
       - SYS_PTRACE
+    privileged: true
     networks:
       - default
 
+volumes:
+  data-volume:
 networks:
   default:

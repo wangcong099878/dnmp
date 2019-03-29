@@ -1,10 +1,7 @@
 docker-compose build
 docker-compose up
-
-
 ln -s /Users/wangcong/php/juejin/1jiedan /Users/wangcong/php/juejin/dnmp/www/1jiedan
-
-
+docker-compose stop
 
 
 DNMP（Docker + Nginx + MySQL + PHP7/5 + Redis）是一款全功能的**LNMP一键安装程序**。
